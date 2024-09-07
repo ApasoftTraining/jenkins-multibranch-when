@@ -1,25 +1,12 @@
 pipeline {
     agent any
-
     stages {
         stage('Build') {
             steps {
                 echo 'Building the project...'
-                sh 'mvn clean compile'
             }
         }
-
-        stage('Test') {
-            when {
-                branch 'Test'
-            }
-            steps {
-                echo 'Running tests for Test branch...'
-                
-            }
-        }
-
-        stage('Development Deployment') {
+        stage('Development') {
             when {
                 branch 'Development'
             }
@@ -29,6 +16,15 @@ pipeline {
                 echo 'Deployed to Development successfully.'
             }
         }
+        stage('Test') {
+            when{
+                branch 'Test'
+            }
+            steps {
+                echo 'Running tests for Test branch...'
+               
+            }
+        }        
 
         stage('Production Deployment') {
             when {
